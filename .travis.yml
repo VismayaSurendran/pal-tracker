@@ -21,7 +21,7 @@ jobs:
     - git tag -f "release-$TRAVIS_BUILD_NUMBER"
     deploy:
       provider: releases
-      api_key: $GITHUB_OAUTH_TOKEN
+      api_key:  b0d7e523fbe5acc7dcd32d00c529732b518f5ba2
       file: "build/libs/pal-tracker.jar"
       skip_cleanup: true
   - stage: deploy to cf
@@ -33,8 +33,8 @@ jobs:
     - echo "Deploying "release-$TRAVIS_BUILD_NUMBER" to Cloud Foundry"
     deploy:
       provider: cloudfoundry
-      api: $CF_API_URL
-      username: $CF_USERNAME
-      password: $CF_PASSWORD
-      organization: $CF_ORG
-      space: $CF_SPACE
+      api: api.sys.evans.pal.pivotal.io
+      username: vismaya.t33@wipro.com
+      password: dms8s96p
+      organization: vismaya.t33.wipro.com
+      space: sandbox
