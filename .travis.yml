@@ -24,6 +24,7 @@ jobs:
       api_key:  b0d7e523fbe5acc7dcd32d00c529732b518f5ba2
       file: "build/libs/pal-tracker.jar"
       skip_cleanup: true
+
   - stage: deploy to cf
     language: bash
     script:
@@ -38,3 +39,4 @@ jobs:
       password: dms8s96p
       organization: vismaya.t33.wipro.com
       space: sandbox
+
