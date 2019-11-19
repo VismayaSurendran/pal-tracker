@@ -1,4 +1,4 @@
-dist: trusty
+RELEASE_TAGdist: trusty
 sudo: false
 notifications:
   email: false
@@ -15,6 +15,7 @@ jobs:
       install: skip
       script: ./gradlew clean build
       before_deploy:
+        - export RELEASE_TAG="release-$TRAVIS_BUILD_NUMBER"
         - git config --local user.name "Travis CI"
         - git config --local user.email "travis@example.com"
         - git tag -f $RELEASE_TAG
