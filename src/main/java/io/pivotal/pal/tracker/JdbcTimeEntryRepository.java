@@ -21,6 +21,7 @@ public class JdbcTimeEntryRepository implements TimeEntryRepository {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+
     @Override
     public TimeEntry create(TimeEntry timeEntry) {
         KeyHolder generatedKeyHolder = new GeneratedKeyHolder();
