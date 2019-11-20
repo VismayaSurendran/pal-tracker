@@ -1,10 +1,8 @@
 package io.pivotal.pal.tracker;
 
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +15,7 @@ public class TimeEntryController {
     private TimeEntryRepository timeEntryRepository;
 
     public TimeEntryController(TimeEntryRepository timeEntryRepository) {
-        this.timeEntryRepository=timeEntryRepository;
+        this.timeEntryRepository = timeEntryRepository;
     }
 
     @PostMapping
@@ -31,21 +29,22 @@ public class TimeEntryController {
 
 
         TimeEntry timeEntry = timeEntryRepository.find(timeEntryId);
-        if(timeEntry==null) {
+        if (timeEntry == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(timeEntry);
     }
+
     @GetMapping
     public ResponseEntity<List<TimeEntry>> list() {
         return ResponseEntity.status(HttpStatus.OK).body(timeEntryRepository.list());
     }
 
     @PutMapping("{timeEntryId}")
-    public ResponseEntity<TimeEntry> update(@PathVariable("timeEntryId")  long timeEntryId, @RequestBody TimeEntry expected) {
+    public ResponseEntity<TimeEntry> update(@PathVariable("timeEntryId") long timeEntryId, @RequestBody TimeEntry expected) {
         TimeEntry update = timeEntryRepository.update(timeEntryId, expected);
-        if(update==null) {
+        if (update == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
@@ -53,7 +52,11 @@ public class TimeEntryController {
     }
 
     @DeleteMapping("{timeEntryId}")
-    public ResponseEntity<TimeEntry> delete(@PathVariable("timeEntryId") long timeEntryId) {
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(timeEntryRepository.delete(timeEntryId));
+    public ResponseEntity  delete(@PathVariable("timeEntryId") long timeEntryId) {
+        timeEntryRepository.delete(timeEntryId);
+       return new ResponseEntity(HttpStatus.NO_CONTENT);
+
+
     }
+
 }
