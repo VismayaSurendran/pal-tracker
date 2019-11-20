@@ -20,10 +20,12 @@ jobs:
         - flyway-*/flyway -url="jdbc:mysql://localhost:3306/tracker_test" -locations=filesystem:databases/tracker -user=tracker -password= clean migrate
       script: ./gradlew clean build
       before_deploy:
+        - export RELEASE_TAG="release-$TRAVIS_BUILD_NUMBER"
         - git config --local user.name "Travis CI"
         - git config --local user.email "travis@example.com"
         - git tag -f $RELEASE_TAG
       deploy:
+        edge: true
         provider: releases
         api_key: $GITHUB_OAUTH_TOKEN
         file: "build/libs/pal-tracker.jar"
@@ -41,6 +43,7 @@ jobs:
         - echo "Downloading $RELEASE_TAG"
         - wget -P build/libs https://github.com/$GITHUB_USERNAME/pal-tracker/releases/download/$RELEASE_TAG/pal-tracker.jar
       before_deploy:
+        - export RELEASE_TAG="release-$TRAVIS_BUILD_NUMBER"
         - echo "Deploying $RELEASE_TAG to Cloud Foundry"
       before_script:
         - cf login -a $CF_API_URL -u $CF_USERNAME -p $CF_PASSWORD -o $CF_ORG -s $CF_SPACE
